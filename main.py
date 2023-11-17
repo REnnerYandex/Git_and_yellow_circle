@@ -1,16 +1,16 @@
 import random
 import sys
 
-from PyQt5 import uic
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton
 from PyQt5.QtCore import QRect, QPoint, QSize
+from UI import Ui_MainWindow
 
 
-class Example(QMainWindow):
+class Example(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
+        self.setupUi(self)
         self.initUI()
 
     def initUI(self):
@@ -32,8 +32,11 @@ class Example(QMainWindow):
         self.update()
 
     def draw_circle(self, qp):
-        qp.setBrush(QColor(255, 255, 0))
         for i in range(50):
+            r = random.randrange(256)
+            g = random.randrange(256)
+            b = random.randrange(256)
+            qp.setBrush(QColor(r, g, b))
             x, y = random.randrange(300), random.randrange(300)
             dx = dy = random.randint(20, 50)
             qp.drawEllipse(QRect(QPoint(x, y), QSize(dx, dy)))
